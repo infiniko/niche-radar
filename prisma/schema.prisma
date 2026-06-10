@@ -17,6 +17,11 @@ enum Role {
   ADMIN
 }
 
+enum PlanType {
+  FREE
+  PRO
+}
+
 /////USER MODAL TABLE/////
 model User {
   id            String    @id @default(cuid())
@@ -41,3 +46,75 @@ model User {
 }
 
 /////ACCOUNT MODAL TABLE/////
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+/////NEXTAUTH SESSION MODEL/////
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+/////NEXTAUTH VERIFICATION TOKEN MODEL/////
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+/////SUBSCRIPTION MODEL/////
+model Subscription {
+  id        String    @id @default(cuid())
+  userId    String    @unique
+  planType  PlanType  @default(FREE)
+  startDate DateTime  @default(now())
+  endDate   DateTime?
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("subscriptions")
+}
+
+/////USAGE LOG MOODEL/////
+model UsageLog {
+  id              String   @id @default(cuid())
+  userId          String
+  month           Int // 1-12
+  year            Int
+  validationCount Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, month, year])
+  @@map("usage_logs")
+}
