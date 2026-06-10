@@ -12,6 +12,7 @@ datasource db {
   provider = "postgresql"
 }
 
+/////ENUMS/////
 enum Role {
   USER
   ADMIN
@@ -22,6 +23,19 @@ enum PlanType {
   PRO
 }
 
+enum ReportStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum PaymentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
 /////USER MODAL TABLE/////
 model User {
   id            String    @id @default(cuid())
@@ -29,7 +43,7 @@ model User {
   email         String    @unique
   emailVerified DateTime?
   password      String
-  image         String
+  image         String?
   role          Role      @default(USER)
   createAt      DateTime  @default(now())
   updateAt      DateTime  @updatedAt
@@ -37,8 +51,8 @@ model User {
   //relations
   accounts        Account[]
   sessions        Session[]
-  subscription    Subscriptions?
-  reports         Reports[]
+  subscription    Subscription?
+  reports         Report[]
   usage           UsageLog[]
   paymentRequests PaymentRequest[]
 
@@ -117,4 +131,73 @@ model UsageLog {
 
   @@unique([userId, month, year])
   @@map("usage_logs")
+}
+
+/////REPORT MODEL/////
+model Report {
+  id        String       @id @default(cuid())
+  userId    String
+  niche     String       @db.VarChar(255)
+  keyword   String       @db.VarChar(255)
+  status    ReportStatus @default(PENDING)
+  isPublic  Boolean      @default(false)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  // JSON fields for storing analysis data
+  trendsData        Json? // Stores Google Trends data
+  aiInsights        Json? // Stores AI-generated insights
+  competitionData   Json? // Stores competition analysis
+  monetizationIdeas Json? // Stores monetization suggestions
+  gtmStrategy       Json? // Stores go-to-market strategy
+
+  // Summary fields
+  overallScore    Float?  @default(0) // 0-100 score
+  viabilityRating String? // HIGH, MEDIUM, LOW
+  summaryText     String? @db.Text
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([niche])
+  @@index([createdAt])
+  @@map("reports")
+}
+
+/////PAYMENT REQUEST MODEL/////
+model PaymentRequest {
+  id             String        @id @default(cuid())
+  userId         String
+  transactionId  String        @db.VarChar(255)
+  invoicePath    String        @db.VarChar(500)
+  status         PaymentStatus @default(PENDING)
+  rejectedReason String?       @db.Text
+  approvedAt     DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("payment_requests")
+}
+
+/////TRENDING NICHES MODEL/////
+
+model TrendingNiche {
+  id               String   @id @default(cuid())
+  niche            String   @unique @db.VarChar(255)
+  trendScore       Float    @default(0) // Based on search volume growth
+  searchVolume     Int      @default(0)
+  growthRate       Float    @default(0)
+  lastChecked      DateTime @default(now())
+  notificationSent Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([trendScore])
+  @@index([lastChecked])
+  @@map("trending_niches")
 }
