@@ -1,11 +1,26 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Montserrat, Manrope } from "next/font/google";
+import {
+  Geist,
+  Geist_Mono,
+  Montserrat,
+  Manrope,
+  Bricolage_Grotesque,
+} from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-const manropeHeading = Manrope({subsets:['latin'],variable:'--font-heading'});
+const manropeHeading = Manrope({
+  subsets: ["latin"],
+  variable: "--font-heading",
+});
 
-const montserrat = Montserrat({subsets:['latin'],variable:'--font-sans'});
+const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-sans" });
+
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin"],
+  weight: ["400"],
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,7 +50,8 @@ export default function RootLayout({
         "antialiased",
         geistSans.variable,
         geistMono.variable,
-        "font-sans",
+        bricolage.variable,
+        "font-bricolage",
         montserrat.variable,
         manropeHeading.variable,
       )}

@@ -1,17 +1,16 @@
+import Hero from "@/components/Hero";
+import Features from "@/components/home/Features";
 import Navbar from "@/components/Navbar";
-import Link from "next/link";
+import PricingMinimal from "@/components/pricing-minimal";
 
 export default function HomePage() {
   return (
     <div className="min-h-screen">
-      {/* <ArrowRightIcon size={32} /> 
-      <TrendUpIcon size={32} />
-      <MagnifyingGlassIcon size={32} />
-      <FileTxtIcon size={32} />
-      <SparkleIcon size={32} weight="duotone" /> */}
-
       {/* navigation */}
       <Navbar />
+      <Hero />
+      <Features />
+      <PricingMinimal />
     </div>
   );
 }

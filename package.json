@@ -25,6 +25,8 @@
     "google-trends-api": "^4.9.2",
     "jspdf": "^4.2.1",
     "jspdf-autotable": "^5.0.8",
+    "lucide-react": "^1.17.0",
+    "motion": "^12.40.0",
     "next": "16.2.7",
     "next-auth": "^4.24.14",
     "node-cron": "^4.2.1",
