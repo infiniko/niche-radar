@@ -17,10 +17,10 @@ const Features = () => {
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20"
     >
       <div className="text-center mb-16">
-        <h2 className="text-4xl font-bold text-gray-900 mb-4">
+        <h2 className="text-4xl font-bold text-heading mb-4">
           Everything You Need to Validate Your Idea
         </h2>
-        <p className="text-xl text-gray-600">
+        <p className="text-xl text-subheading">
           Comprehensive market research in minutes, not weeks
         </p>
       </div>

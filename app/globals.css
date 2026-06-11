@@ -29,6 +29,12 @@
   --chart-4: oklch(0.68 0.08 22);
   --chart-5: oklch(0.55 0.107 202);
   --radius: 20px;
+  /* custom */
+  --heading: oklch(0.15 0.014 202);
+  --subheading: oklch(0.35 0.015 202);
+  --success: oklch(0.65 0.14 142);
+  --button-dark: oklch(0.2 0.012 202);
+  --button-dark-hvr: oklch(28.269% 0.01003 207.22);
 }
 
 .dark {
@@ -55,6 +61,12 @@
   --chart-3: oklch(0.58 0.087 202);
   --chart-4: oklch(0.74 0.067 22);
   --chart-5: oklch(0.6 0.094 202);
+  /* custon */
+  --heading: oklch(0.95 0.005 202);
+  --subheading: oklch(0.75 0.01 202);
+  --success: oklch(0.75 0.12 142);
+  --button-dark: oklch(0.28 0.014 202);
+  --button-dark-hvr: oklch(0.35 0.015 202);
 }
 
 @theme inline {
@@ -93,6 +105,13 @@
 
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* custom */
+  --color-heading: var(--heading);
+  --color-subheading: var(--subheading);
+  --color-success: var(--success);
+  --color-btn-dark: var(--button-dark);
+  --color-btn-dark-hvr: var(--button-dark-hvr);
 }
 
 @layer base {
@@ -105,4 +124,10 @@
   html {
     @apply font-sans;
   }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }

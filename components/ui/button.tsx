@@ -22,7 +22,7 @@ const buttonVariants = cva(
         success: "bg-green-600 text-white hover:bg-green-700",
         warning: "bg-yellow-500 text-black hover:bg-yellow-600",
         info: "bg-blue-500 text-white hover:bg-blue-600",
-        dark: "bg-gray-800 text-white hover:bg-gray-700",
+        dark: "bg-btn-dark text-white hover:bg-btn-dark-hvr",
         light: "bg-gray-100 text-gray-800 hover:bg-gray-200",
         gradient:
           "bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 text-white hover:opacity-90",

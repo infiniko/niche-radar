@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import ThemeToggler from "./ThemeToggler";
 
 export default function Navbar() {
   return (
@@ -16,6 +17,7 @@ export default function Navbar() {
             Niche Radar
           </NavigationMenuItem>
           <NavigationMenuItem className="flex gap-2">
+            <ThemeToggler />
             <Button variant="secondary" className="rounded-full">
               <Link href="./signin">Sign in</Link>
             </Button>
