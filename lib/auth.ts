@@ -1,14 +1,13 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from '@auth/prisma-adapter';
+import db from "@/lib/prisma";
 import bcrypt from "bcryptjs";
-import db from "./prisma";
 import { Prisma, Role, User, Subscription } from "./generated/prisma/client";
 
 export type UserWithSubscription = Prisma.UserGetPayload<{
     include: { subscription: true }
 }>;
-
 
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -92,8 +91,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         },
         async session({ session, token }) {
             if (session.user) {
-                (session.user as User).id = token.id as string;
-                (session.user as User).role = token.role as Role;
+                (session.user as UserWithSubscription).id = token.id as string;
+                (session.user as UserWithSubscription).role = token.role as Role;
                 (session.user as UserWithSubscription).subscription = token.subscription as Subscription;
                 session.user.name = token.name as string;
                 session.user.email = token.email as string;
@@ -111,3 +110,5 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         maxAge: 30 * 24 * 60 * 60
     }
 });
+
+console.log("Auth handlers:", handlers); // Add this

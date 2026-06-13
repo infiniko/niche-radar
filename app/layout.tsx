@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Providers } from "./providers";
 import { Toaster } from "@/components/Toaster";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const manropeHeading = Manrope({
   subsets: ["latin"],
@@ -60,7 +61,7 @@ export default function RootLayout({
       )}
       suppressHydrationWarning
     >
-      <body className="min-h-full">
+      <body className="min-h-full" suppressHydrationWarning>
         <Providers>
           <ThemeProvider
             attribute="class"
@@ -68,7 +69,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <TooltipProvider>{children}</TooltipProvider>
           </ThemeProvider>
           <Toaster />
         </Providers>

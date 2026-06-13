@@ -1,6 +1,9 @@
 import {
+    CardsIcon,
+    FadersIcon,
     FileTxtIcon,
     MagnifyingGlassIcon,
+    PresentationChartIcon,
     SparkleIcon,
     TrendUpIcon,
 } from "@phosphor-icons/react";
@@ -30,4 +33,11 @@ export const featuresData = [
         title: 'Full Reports',
         description: 'Competition analysis, monetization ideas, and go-to-market strategies all in one place.'
     },
+]
+
+
+export const navigationItems = [
+    { id: 1, name: 'Dashboard', url: '/dashboard', icon: PresentationChartIcon },
+    { id: 2, name: 'Reports', url: '/dashboard/reports', icon: CardsIcon },
+    { id: 3, name: 'Settings', url: '/dashboard/settings', icon: FadersIcon },
 ]
