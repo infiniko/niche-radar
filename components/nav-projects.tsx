@@ -1,29 +1,12 @@
 "use client";
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from "@/components/ui/sidebar";
-import {
-  DotsThreeOutlineIcon,
-  FolderIcon,
-  Icon,
-  ShareFatIcon,
-  TargetIcon,
-  TrashIcon,
-} from "@phosphor-icons/react";
+import { Icon, TargetIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 
 export function NavigationItem({
