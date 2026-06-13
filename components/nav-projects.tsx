@@ -36,11 +36,8 @@ export function NavigationItem({
     icon: Icon;
   }[];
 }) {
-  const { isMobile } = useSidebar();
-
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      {/* <SidebarGroupLabel>Projects</SidebarGroupLabel> */}
       <div className="text-2xl text-center flex justify-center items-center gap-2 font-semibold pb-5">
         <TargetIcon size={32} weight="duotone" />
         <span>Niche Radar</span>
